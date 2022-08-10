@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  huginn:
+    build: ./
+    ports:
+      - "3000:3000"
+    # restart: unless-stopped
+    environment:
+      - ADDITIONAL_GEMS=huginn_anomaly_agent :path => '/huginn_anomaly_agent'
+      - DATABASE_ADAPTER=postgresql
+      - DATABASE_ENCODING=utf8
+      - DATABASE_RECONNECT=true
+      - DATABASE_NAME=huginn
+      - DATABASE_USERNAME=huginn
+      - DATABASE_PASSWORD=huginn
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - APP_SECRET_TOKEN=REPLACE_ME_NOW!
+      - DOMAIN=localhost:3000
+      - PORT=3000
+      - FORCE_SSL=false
+      - SKIP_INVITATION_CODE=true
+      - REQUIRE_CONFIRMED_EMAIL=false
+    # entrypoint: /huginn_anomaly_agent/entrypoint.sh
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=huginn
+      - POSTGRES_PASSWORD=huginn
+      - POSTGRES_USER=huginn
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

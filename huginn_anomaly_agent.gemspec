@@ -9,19 +9,18 @@ Gem::Specification.new do |spec|
   spec.email         = ["gardner@bickford.nz"]
 
   spec.summary       = %q{Detect anomalies in a series of Huginn events.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.description   = %q{Anomaly Agent trains an isotree model to detect anomalies in a series of Huginn events. For a full description of options please see https://isotree.readthedocs.io/en/latest/#isotree.IsolationForest}
 
   spec.homepage      = "https://github.com/gardner/huginn_anomaly_agent"
 
   spec.license       = "MIT"
-
 
   spec.files         = Dir['LICENSE.txt', 'lib/**/*']
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = Dir['spec/**/*.rb'].reject { |f| f[%r{^spec/huginn}] }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.7"
+  spec.add_development_dependency "bundler", "~> 2.3.14"
   spec.add_development_dependency "rake", "~> 10.0"
 
   spec.add_runtime_dependency "huginn_agent"
